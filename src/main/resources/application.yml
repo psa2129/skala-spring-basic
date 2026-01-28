@@ -1,24 +1,24 @@
 server:
-  port: 8080
+  port: 8080 # 1. 서버 포트 번호 설정
 
 logging:
   level:
-    root: info
-    '[com.skala.basic]': debug
+    root: info # 기본 로그 레벨은 INFO
+    '[com.skala.basic]': debug # 프로젝트 패키지는 상세한 DEBUG 레벨로 출력
 
-management:
+management: # 2. 액추에이터(Actuator) 설정: 앱 상태 모니터링
   endpoints:
     web:
       exposure:
-        include: health, env
+        include: health, env # 헬스체크와 환경변수 확인 엔드포인트 노출
   endpoint:
     health:
-      show-details: always
+      show-details: always # 헬스체크 상세 정보 항상 표시
     env:
-      show-values: never
+      show-values: never # 환경변수 값은 보안상 숨김
 
 spring:
-  datasource:
+  datasource: # 3. 데이터베이스(H2) 연결 설정
     url: jdbc:h2:file:./data/skala-stock;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
     driver-class-name: org.h2.Driver
     username: sa
@@ -26,7 +26,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # 4. 엔티티 변경 시 테이블 구조 자동 업데이트
+  
   h2:
     console:
-      enabled: true
+      enabled: true # 5. 웹에서 H2 DB를 확인할 수 있는 콘솔 활성화
